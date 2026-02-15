@@ -22,7 +22,8 @@ const translations = {
     promoTitle: "Sirsa Special Showcase 🌆",
     promoText: "This is a demo website we created for a popular place in Sirsa. Your business website could look like this too!",
     promoView: "View Now",
-    promoClose: "Close"
+    promoClose: "Close",
+    whatsappMsg: "Hello, I want a website for my business in Sirsa. Please share details.",
   },
 
   hi: {
@@ -43,7 +44,8 @@ const translations = {
     promoTitle: "सिरसा स्पेशल शोकेस 🌆",
     promoText: "यह एक डेमो वेबसाइट है जो हमने सिरसा की एक लोकप्रिय जगह के लिए बनाई है। आपका बिज़नेस भी ऐसा दिख सकता है।",
     promoView: "अभी देखें",
-    promoClose: "बंद करें"
+    promoClose: "बंद करें",
+     whatsappMsg: "नमस्ते, मुझे अपने बिज़नेस के लिए वेबसाइट बनवानी है। कृपया जानकारी साझा करें।",
   },
 
   pa: {
@@ -64,9 +66,11 @@ const translations = {
     promoTitle: "ਸਿਰਸਾ ਸਪੈਸ਼ਲ ਸ਼ੋਕੇਸ 🌆",
     promoText: "ਇਹ ਇੱਕ ਡੈਮੋ ਵੈਬਸਾਈਟ ਹੈ ਜੋ ਅਸੀਂ ਸਿਰਸਾ ਦੀ ਇੱਕ ਮਸ਼ਹੂਰ ਜਗ੍ਹਾ ਲਈ ਬਣਾਈ ਹੈ। ਤੁਹਾਡਾ ਬਿਜ਼ਨਸ ਵੀ ਇਸ ਤਰ੍ਹਾਂ ਲੱਗ ਸਕਦਾ ਹੈ।",
     promoView: "ਹੁਣੇ ਵੇਖੋ",
-    promoClose: "ਬੰਦ ਕਰੋ"
+    promoClose: "ਬੰਦ ਕਰੋ",
+    whatsappMsg: "ਸਤ ਸ੍ਰੀ ਅਕਾਲ, ਮੈਨੂੰ ਆਪਣੇ ਬਿਜ਼ਨਸ ਲਈ ਵੈਬਸਾਈਟ ਬਣਵਾਉਣੀ ਹੈ। ਕਿਰਪਾ ਕਰਕੇ ਜਾਣਕਾਰੀ ਦਿਓ।",
   }
 };
+
 
 const projects = [
   {
@@ -140,6 +144,9 @@ export default function Home() {
     }, 3000);
   };
 
+  
+const whatsappLink = `https://wa.me/917206881771?text=${encodeURIComponent(t.whatsappMsg)}`;
+
   return (
     <div>
 
@@ -156,7 +163,7 @@ export default function Home() {
             <li><a href="#contact" onClick={() => setMenuOpen(false)}>{t.contactTitle}</a></li>
             <li>
               <a
-                href="https://wa.me/917206881771"
+                href="https://wa.me/917206881771?text=Hello%20%2F%20Namaste%20%2F%20Sat%20Sri%20Akal%20%F0%9F%99%8F%0AI%20want%20a%20website%20for%20my%20business%20in%20Sirsa.%20Please%20share%20details."
                 target="_blank"
                 rel="noreferrer"
                 className="nav-btn"
@@ -167,7 +174,7 @@ export default function Home() {
           </ul>
 
           <div className="menu-icon" onClick={() => setMenuOpen(!menuOpen)}>
-            {menuOpen ? <X size={26}/> : <Menu size={26}/>}
+            {menuOpen ? <X size={26} /> : <Menu size={26} />}
           </div>
 
         </div>
@@ -245,9 +252,9 @@ export default function Home() {
         <h2 style={{ textAlign: "center" }}>{t.contactTitle}</h2>
 
         <div className="contact-info">
-          <p><MessageCircle size={18}/> WhatsApp: +91 7206881771</p>
-          <p><Mail size={18}/> Email: contact@sirsabusiness.com</p>
-          <p><Phone size={18}/> Phone: +91 7206881771</p>
+          <p><MessageCircle size={18} /> WhatsApp: +91 7206881771</p>
+          <p><Mail size={18} /> Email: contact@sirsabusiness.com</p>
+          <p><Phone size={18} /> Phone: +91 7206881771</p>
         </div>
 
         <form onSubmit={handleSubmit} className="contact-form">
@@ -261,9 +268,12 @@ export default function Home() {
         </form>
       </section>
 
+      <a href= {whatsappLink} target="_blank" rel="noreferrer" className="side-cta" > <span className="online-dot"></span> <span className="cta-text"></span> <span className="cta-icon">💬</span> </a>
+
       <footer className="footer">
         {t.footer}
       </footer>
+
 
       {showPromo && (
         <div className="promo-overlay">

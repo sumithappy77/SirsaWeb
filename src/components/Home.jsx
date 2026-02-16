@@ -2,6 +2,9 @@ import { useState, useEffect } from "react";
 import { Mail, MessageCircle, Phone, ExternalLink, ChevronDown, Menu, X } from "lucide-react";
 import "../style/home.css";
 import { Link } from "react-router-dom";
+import emailjs from "@emailjs/browser";
+import toast, { Toaster } from "react-hot-toast";
+
 
 const translations = {
   en: {
@@ -135,21 +138,47 @@ export default function Home() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+const handleSubmit = (e) => {
+  e.preventDefault();
+
+  emailjs.send(
+    "service_bwa4nvw",
+    "template_q846mlq",
+    {
+      name: formData.name,
+      email: formData.email,
+      phone: formData.phone,
+      message: formData.message,
+    },
+    "5fNDnQlgVV633n1-0"
+  )
+  .then(() => {
+    toast.success("Message sent successfully 🚀");
     setSubmitted(true);
+
+    setFormData({
+      name: "",
+      email: "",
+      phone: "",
+      message: "",
+    });
+
     setTimeout(() => {
       setSubmitted(false);
-      setFormData({ name: "", email: "", phone: "", message: "" });
     }, 3000);
-  };
+  })
+  .catch((error) => {
+    console.error("Email failed:", error);
+    toast.error("Something went wrong ❌");
+  });
+};
 
   
 const whatsappLink = `https://wa.me/917206881771?text=${encodeURIComponent(t.whatsappMsg)}`;
 
   return (
     <div>
-
+    <Toaster position="top-right" reverseOrder={false} />
       {/* NAVBAR */}
       <nav className="navbar">
         <div className="nav-container">
@@ -261,7 +290,7 @@ const whatsappLink = `https://wa.me/917206881771?text=${encodeURIComponent(t.wha
           <input name="name" placeholder={t.name} value={formData.name} onChange={handleChange} required />
           <input name="email" placeholder={t.email} value={formData.email} onChange={handleChange} required />
           <input name="phone" placeholder={t.phone} value={formData.phone} onChange={handleChange} required />
-          <textarea name="message" placeholder={t.message} value={formData.message} onChange={handleChange} required />
+          <textarea name="message" placeholder={t.message} value={formData.message} onChange={handleChange} />
           <button type="submit" className="btn">
             {submitted ? "✔ Done" : t.sendBtn}
           </button>
